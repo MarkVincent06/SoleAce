@@ -1,0 +1,191 @@
+:root {
+    --black: #000000;
+    --white: #ffffff;
+    --white2: #f5f5f5;
+    --scarlet: #bb0000;
+    --mango: #f6bf31;
+}
+
+/* LAYOUTS */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    width: 100%;
+    background-color: var(--white);
+    display: grid;
+    grid-template-columns: 20% 40% 20% 20%;
+    height: 100px;
+    align-items: center;
+    padding: 0px 100px 0px 100px;
+    box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.15);
+}
+
+.business-logo-container {
+    margin: 0 auto;
+}
+
+.categories {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.categories li {
+    position: relative;
+    cursor: pointer;
+}
+
+.categories li i {
+    margin-left: 5px;
+}
+
+.categories li .dropdown-menu {
+    position: absolute;
+    display: none;
+    left: -20px;
+    top: 100%;
+    z-index: 10;
+    background: var(--white);
+    padding: 10px 15px;
+    border: 1px solid rgba(51, 51, 51, 0.15);
+    border-radius: 0.25rem;
+}
+
+.categories li .dropdown-menu li {
+    width: 150px;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.categories li .dropdown-menu a {
+    color: rgba(0, 0, 0, 0.6);
+    transition: color 200ms ease-in-out;
+}
+
+.account-logged-in {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.account-logged-in > .account-dropdown-menu {
+    position: absolute;
+    display: none;
+    top: 100%;
+    right: 0;
+    z-index: 10;
+    background: var(--white);
+    padding: 10px 15px;
+    width: 150px;
+    border: 1px solid rgba(51, 51, 51, 0.15);
+    border-radius: 0.25rem;
+}
+
+.shopping-cart-link {
+    position: relative;
+    margin: auto;
+}
+
+/* TYPOGRAPHY */
+li {
+    list-style: none;
+}
+
+.categories li {
+    font-size: 17px;
+}
+
+.account-logged-in > .username {
+    margin-left: auto;
+    cursor: pointer;
+}
+
+.number-of-items {
+    font-size: 12px;
+    font-weight: 900;
+    top: -15px;
+    right: -15px;
+    position: absolute;
+    padding: 3px 5px;
+    border-radius: 50%;
+    background-color: var(--scarlet);
+    color: var(--white);
+    width: 25px;
+    height: 25px;
+    text-align: center;
+}
+
+/* IMAGES AND ICONS */
+.business-logo {
+    max-height: 100%;
+}
+
+.shopping-cart {
+    color: var(--black);
+    font-size: 18px;
+}
+
+/* LINKS */
+.sign-in-link {
+    font-size: 15px;
+    color: var(--black);
+    border: 2px solid var(--black);
+    padding: 3px 20px;
+    position: relative;
+    margin-left: auto;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.account-dropdown-menu .sign-out-link {
+    color: rgba(0, 0, 0, 0.6);
+    transition: color 200ms ease-in-out;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* HOVERS, ACTIVES, ETC. */
+.sign-in-link:hover {
+    border: 2px solid rgb(96, 203, 96);
+}
+
+.sign-in-link:after {
+    content: "";
+    background: rgb(117, 201, 117);
+    position: absolute;
+    z-index: -1;
+    left: -20%;
+    right: -20%;
+    top: 0;
+    bottom: 0;
+    transform: skewX(-45deg) scale(0, 1);
+    transition: all 0.5s;
+}
+
+.sign-in-link:hover:after {
+    transform: skewX(-45deg) scale(1, 1);
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+.categories li .dropdown-menu a:hover {
+    color: rgba(0, 0, 0, 1);
+}
+
+.categories li:hover .dropdown-menu,
+.account-logged-in:hover > .account-dropdown-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.account-dropdown-menu .sign-out-link:hover {
+    color: rgba(0, 0, 0, 1);
+}

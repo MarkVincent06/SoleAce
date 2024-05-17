@@ -75,7 +75,6 @@
                         @if($tagType && $tagName)
                            <p class="{{$tagType}}">{{$tagName}}</p>
                         @endif
-
                      </a>
                      <div class="product-selection">
                         <div>
@@ -125,6 +124,18 @@
          </section>
       @endif
 
+      {{-- FEATURED PRODUCTS --}}
+      <section class=" new-products-container">
+         <div class="new-products-subcontainer">
+            <h2 class="new-products--title">NEW ITEMS</h2>
+            <div class="new-products--images-container">
+               @foreach($newProducts as $newProduct)
+                  <img src="{{asset('images/' . $newProduct->image)}}" alt="A picture of a product">
+               @endforeach
+            </div>
+            <a href="/" class="new-products--button">SHOP NOW</a>
+         </div>
+      </section>
    </main>
 
    {{-- FOOTER --}}

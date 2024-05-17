@@ -6,10 +6,9 @@
          <ul class="categories">
             <li>
                New & Featured
-
                <ul class="dropdown-menu">
-                  <li><a href="">New Arrivals</a></li>
-                  <li><a href="">Featured Shoes</a></li>
+                  <li><a href="{{route('new-arrivals')}}">New Arrivals</a></li>
+                  <li><a href="{{route('featured-shoes')}}">Featured Shoes</a></li>
                </ul>
             </li>
 
@@ -17,10 +16,14 @@
                Men
 
                <ul class="dropdown-menu">
-                  <li><a href="">All Shoes For Men</a></li>
-                  <li><a href="">Casual</a></li>
-                  <li><a href="">Running</a></li>
-                  <li><a href="">Sneakers</a></li>
+                  <li><a href="{{route('men-shoes', ['subcategory' => 'all'])}}">All Shoes For Men</a></li>
+                  @if(count($subcategories) > 0)
+                     @foreach($subcategories as $subcategory)
+                        @if($subcategory->category === "men")
+                           <li><a href="{{route('men-shoes', ['subcategory' => strtolower($subcategory->name)])}}">{{$subcategory->name}}</a></li>
+                        @endif
+                     @endforeach
+                  @endif
                </ul>
             </li>
 
@@ -28,9 +31,14 @@
                Women
 
                <ul class="dropdown-menu">
-                  <li><a href="">All Shoes For Women</a></li>
-                  <li><a href="">Casual</a></li>
-                  <li><a href="">Running</a></li>
+                  <li><a href="{{route('women-shoes', ['subcategory' => 'all'])}}">All Shoes For Women</a></li>
+                  @if(count($subcategories) > 0)
+                     @foreach($subcategories as $subcategory)
+                        @if($subcategory->category === "women")
+                           <li><a href="{{route('women-shoes', ['subcategory' => strtolower($subcategory->name)])}}">{{$subcategory->name}}</a></li>
+                        @endif
+                     @endforeach
+                  @endif
                </ul>
             </li>
 
@@ -39,14 +47,19 @@
                Kids
 
                <ul class="dropdown-menu">
-                  <li><a href="">All Shoes For Kids</a></li>
-                  <li><a href="">Boys</a></li>
-                  <li><a href="">Girls</a></li>
+                  <li><a href="{{route('kid-shoes', ['subcategory' => 'all'])}}">All Shoes For Kids</a></li>
+                  @if(count($subcategories) > 0)
+                     @foreach($subcategories as $subcategory)
+                        @if($subcategory->category === "kid")
+                           <li><a href="{{route('kid-shoes', ['subcategory' => strtolower($subcategory->name)])}}">{{$subcategory->name}}</a></li>
+                        @endif
+                     @endforeach
+                  @endif
                </ul>
             </li>
          </ul>
       
-         <a class="sign-in-link" href="sign-in.php">
+         <a class="sign-in-link" href="{{route('sign-in.render')}}">
             <h3>Sign in</h3>
          </a>
 

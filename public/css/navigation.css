@@ -144,6 +144,8 @@ li {
     color: rgba(0, 0, 0, 0.6);
     transition: color 200ms ease-in-out;
     font-size: 17px;
+    border: none;
+    background-color: transparent;
     cursor: pointer;
 }
 

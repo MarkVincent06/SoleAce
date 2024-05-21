@@ -159,7 +159,7 @@ input::-webkit-inner-spin-button {
 .form-control .alert-container {
     color: #c40000;
     padding: 0 2px;
-    display: none;
+    display: block;
 }
 
 .form-control .alert-container > small {
@@ -174,8 +174,4 @@ input::-webkit-inner-spin-button {
 
 .form-control input.error:focus {
     box-shadow: 0 0 0 1px #cc0c39 inset, 0 0 0 3px #ffe3e3;
-}
-
-.form-control .alert-container.error {
-    display: block;
 }

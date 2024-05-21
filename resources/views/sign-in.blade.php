@@ -18,10 +18,22 @@
    {{-- FONTAWESOME CDN --}}
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+   <!-- SWAL-TOAST-MESSAGE JS -->
+   <script src="{{asset('js/swalToastMsg.js')}}" type="module"></script>
+
+   <!-- SWEETALERT CDN -->
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+
    <title>Sign in | SoleAce</title>
 </head>
 
 <body>
+   <!-- This session will handle the SweetAlert2 toast messages -->
+    @if (session('success'))
+      <!-- THIS HIDDEN INPUT WILL BE USED IN JS -->
+      <input id="toastMsg-input" type="hidden" value="{{session('success')}}">
+    @endif
+
    <!-- NAVIGATION -->
    <nav>
       <div class="business-logo-container">
@@ -33,27 +45,33 @@
 
    {{-- SIGN IN FORM --}}
    <main>
-       <form action="/" method="post" class="signin-container" id="signin-form">
+       <form action="{{route('user.signIn')}}" method="post" class="signin-container" id="signin-form">
+         @csrf
+
          <h1 class="form-title">Sign in</h1>
 
          <!-- EMAIL INPUT -->
          <div class="text-input-container form-control">
             <label for="email">Email</label>
-            <input type="text" name="email" id="email" placeholder="Enter email address">
-            <div class="alert-container">
-               <i class="fa-solid fa-exclamation"></i>
-               <small></small>
-            </div>
+            <input class="@error('email') error @enderror" type="email" name="email" id="email" placeholder="Enter email address" value="{{ old('email') }}">
+            @error('email')
+               <div class="alert-container">
+                  <i class="fa-solid fa-exclamation"></i>
+                  <small>{{$message}}</small>
+               </div>
+            @enderror
          </div>
 
          <!-- PASSWORD INPUT -->
          <div class="password-input-container form-control">
             <label for="password">Password</label>
-            <input type="password" name="password" id="password" placeholder="Enter password">
-            <div class="alert-container">
-               <i class="fa-solid fa-exclamation"></i>
-               <small></small>
-            </div>
+            <input class="@error('password') error @enderror" type="password" name="password" id="password" placeholder="Enter password">
+            @error('password')
+               <div class="alert-container">
+                  <i class="fa-solid fa-exclamation"></i>
+                  <small>{{$message}}</small>
+               </div>
+            @enderror
          </div>
 
          <button type="submit" class="signin-btn" name="signin">Sign in</button>

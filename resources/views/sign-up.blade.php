@@ -18,10 +18,22 @@
    {{-- FONTAWESOME CDN --}}
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+   <!-- SWAL-TOAST-MESSAGE JS -->
+   <script src="{{asset('js/swalToastMsg.js')}}" type="module"></script>
+
+   <!-- SWEETALERT CDN -->
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+
    <title>Sign up | SoleAce</title>
 </head>
 
 <body>
+   <!-- This session will handle the SweetAlert2 toast messages -->
+    @if (session('error'))
+      <!-- THIS HIDDEN INPUT WILL BE USED IN JS -->
+      <input id="toastMsg-input" type="hidden" value="{{session('error')}}">
+    @endif
+
    <!-- NAVIGATION -->
    <nav>
       <div class="business-logo-container">
@@ -33,68 +45,84 @@
 
    {{-- SIGN UP FORM --}}
    <main>
-      <form action="./functions/authcode.php" method="POST" class="signup-container" id="signup-form">
+      <form action="{{route('user.register')}}" method="POST" class="signup-container" id="signup-form">
+         @csrf
+
          <h1 class="form-title">Create account</h1>
 
          <!-- FIRST NAME INPUT -->
          <div class="text-input-container form-control">
             <label for="firstname">First name</label>
-            <input type="text" name="firstname" id="firstname" placeholder="Enter first name">
-            <div class="alert-container">
-               <i class="fa-solid fa-exclamation"></i>
-               <small></small>
-            </div>
+            <input class="@error('firstname') error @enderror" type="text" name="firstname" id="firstname" placeholder="Enter first name" value="{{ old('firstname') }}">
+            @error('firstname')
+               <div class="alert-container">
+                  <i class="fa-solid fa-exclamation"></i>
+                  <small>{{$message}}</small>
+               </div>
+            @enderror
          </div>
 
          <!-- LAST NAME INPUT -->
          <div class="text-input-container form-control">
             <label for="lastname">Last name</label>
-            <input type="text" name="lastname" id="lastname" placeholder="Enter last name">
-            <div class="alert-container">
-               <i class="fa-solid fa-exclamation"></i>
-               <small></small>
-            </div>
+            <input class="@error('lastname') error @enderror" type="text" name="lastname" id="lastname" placeholder="Enter last name" value="{{ old('lastname') }}">
+            @error('lastname')
+               <div class="alert-container">
+                  <i class="fa-solid fa-exclamation"></i>
+                  <small>{{$message}}</small>
+               </div>
+            @enderror
          </div>
 
          <!-- EMAIL INPUT -->
          <div class="text-input-container form-control">
             <label for="email">Email</label>
-            <input type="text" name="email" id="email" placeholder="Enter email address">
-            <div class="alert-container">
-               <i class="fa-solid fa-exclamation"></i>
-               <small></small>
-            </div>
+            <input class="@error('email') error @enderror" type="text" name="email" id="email" placeholder="Enter email address" value="{{ old('email') }}">
+            @error('email')
+               <div class="alert-container">
+                  <i class="fa-solid fa-exclamation"></i>
+                  <small>{{$message}}</small>
+               </div>
+            @enderror
          </div>
 
          <!-- NUMBER INPUT -->
          <div class="number-input-container form-control">
             <label for="phone">Phone number</label>
-            <input type="number" name="phone" id="phone" placeholder="Enter phone number">
-            <div class="alert-container">
-               <i class="fa-solid fa-exclamation"></i>
-               <small></small>
-            </div>
+            <input class="@error('phone') error @enderror" type="number" name="phone" id="phone" placeholder="Enter phone number" value="{{ old('phone') }}">
+            @error('phone')
+               <div class="alert-container">
+                  <i class="fa-solid fa-exclamation"></i>
+                  <small>{{$message}}</small>
+               </div>
+            @enderror
          </div>
 
          <!-- PASSWORD INPUT -->
          <div class="password-input-container form-control">
             <label for="password">Password</label>
-            <input type="password" name="password" id="password" placeholder="Enter password">
-            <small class="password-tip"><i class="fa-solid fa-lightbulb"></i>Password must contain at least 6 characters</small>
-            <div class="alert-container">
-               <i class="fa-solid fa-exclamation"></i>
-               <small></small>
-            </div>
+            <input class="@error('password') error @enderror" type="password" name="password" id="password" placeholder="Enter password">
+            @unless($errors->has('password'))
+               <small class="password-tip"><i class="fa-solid fa-lightbulb"></i>Password must contain at least 6 characters</small>
+            @endunless
+            @error('password')
+               <div class="alert-container">
+                  <i class="fa-solid fa-exclamation"></i>
+                  <small>{{$message}}</small>
+               </div>
+            @enderror
          </div>
 
          <!-- CONFIRM PASSWORD INPUT -->
          <div class="password-input-container form-control">
             <label for="confirm-password">Confirm password</label>
-            <input type="password" name="confirm-password" id="confirm-password" placeholder="Re-enter password">
-            <div class="alert-container">
-               <i class="fa-solid fa-exclamation"></i>
-               <small></small>
-            </div>
+            <input class="@error('password_confirmation') error @enderror" type="password" name="password_confirmation" id="confirm-password" placeholder="Re-enter password">
+            @error('password_confirmation')
+               <div class="alert-container">
+                  <i class="fa-solid fa-exclamation"></i>
+                  <small>{{$message}}</small>
+               </div>
+            @enderror
          </div>
 
          <button type="submit" class="signup-btn" name="signup">Sign up</button>

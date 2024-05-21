@@ -58,10 +58,24 @@
                </ul>
             </li>
          </ul>
-      
-         <a class="sign-in-link" href="{{route('sign-in.render')}}">
-            <h3>Sign in</h3>
-         </a>
+
+         @auth
+            <div class="account-logged-in">
+                  <h3 class="username">Hi, {{auth()->user()->firstname}}</h3>
+
+                  <div class="account-dropdown-menu">
+                     <a href="/" class="sign-out-link">My Orders</a>
+                     <form action="{{route('user.signOut')}}" method="post">
+                        @csrf
+                        <button class="sign-out-link" type="submit">Sign Out</button>
+                     </form>
+                  </div>
+               </div>
+         @else
+            <a class="sign-in-link" href="{{route('sign-in.render')}}">
+               <h3>Sign in</h3>
+            </a>
+         @endauth
 
          <a href="" class="shopping-cart-link" id="shopping-cart-link">
             <i class="fa-solid fa-cart-shopping shopping-cart"></i>

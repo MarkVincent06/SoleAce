@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 
-// CLIENT SIDE
+// START OF CLIENT SIDE
 
 // Home Route
 Route::get('/', function () {
@@ -59,3 +59,12 @@ Route::prefix('categories')->group(function () {
 // Users Route
 Route::get('/sign-in', [UserController::class, 'renderSignIn'])->name('sign-in.render');
 Route::get('/sign-up', [UserController::class, 'renderSignUp'])->name('sign-up.render');
+Route::post('/register', [UserController::class, 'register'])->name('user.register');
+Route::post('/sign-in', [UserController::class, 'signIn'])->name('user.signIn');
+Route::post('/sign-out', [UserController::class, 'signOut'])->name('user.signOut');
+
+// END OF CLIENT SIDE
+
+// START OF ADMIN SIDE
+
+// END OF ADMIN SIDE

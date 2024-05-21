@@ -18,9 +18,22 @@
    {{-- FONTAWESOME CDN --}}
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+      <!-- SWAL-TOAST-MESSAGE JS -->
+   <script src="{{asset('js/swalToastMsg.js')}}" type="module"></script>
+
+   <!-- SWEETALERT CDN -->
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+
    <title>Home | SoleAce</title>
 </head>
 <body>
+    <!-- This session will handle the SweetAlert2 toast messages -->
+    @if (session('message'))
+      <!-- THESE HIDDEN INPUTS WILL BE USED IN JS -->
+      <input id="toastMsg-input" type="hidden" value="{{ session('message') }}">
+      <input id="toastType-input" type="hidden" value="{{ session('type') }}">
+    @endif
+
    {{-- NAVIGATION --}}
    @include('partials._navigation')
    

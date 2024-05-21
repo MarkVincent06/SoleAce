@@ -43,9 +43,9 @@ class UserController extends Controller
             // Log the user in
             auth()->login($user);
 
-            return redirect('/')->with('success', 'Account created successfully. You are now logged in.');
+            return redirect('/')->with(['message' => 'Account created successfully. Welcome!', 'type' => 'success']);
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'An error occurred while creating your account. Please try again.');
+            return redirect()->back()->with(['message' => 'An error occurred while creating your account. Please try again.', 'type' => 'error']);
         }
     }
 
@@ -62,14 +62,14 @@ class UserController extends Controller
         if ($user && $user->password === $credentials['password']) {
             Auth::login($user);
             $request->session()->regenerate();
-            return redirect()->intended('/')->with('success', 'You have successfully signed in.');;
+            return redirect()->intended('/')->with(['message' => 'You have successfully signed in.', 'type' => 'success']);
         }
 
         // UNCOMMENT CODE BELOW BEFORE PRODUCTION PHASE
         // if (Auth::attempt($credentials)) {
         //     $request->session()->regenerate();
 
-        //     return redirect()->intended('/')->with('success', 'You have successfully signed in.');
+        //     return redirect()->intended('/')->with('['message' => 'You have successfully signed in.', 'type' => 'success']');
         // }
 
         return back()->withErrors([
@@ -82,6 +82,6 @@ class UserController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/')->with('success', 'You have been logged out.');
+        return redirect('/')->with(['message' => 'You have been signed out.', 'type' => 'success']);
     }
 }

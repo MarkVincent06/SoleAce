@@ -29,9 +29,10 @@
 
 <body>
    <!-- This session will handle the SweetAlert2 toast messages -->
-    @if (session('success'))
-      <!-- THIS HIDDEN INPUT WILL BE USED IN JS -->
-      <input id="toastMsg-input" type="hidden" value="{{session('success')}}">
+    @if (session('message'))
+      <!-- THESE HIDDEN INPUTS WILL BE USED IN JS -->
+      <input id="toastMsg-input" type="hidden" value="{{ session('message') }}">
+      <input id="toastType-input" type="hidden" value="{{ session('type') }}">
     @endif
 
    <!-- NAVIGATION -->

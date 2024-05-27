@@ -18,9 +18,25 @@
    {{-- FONTAWESOME CDN --}}
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+   <!-- SWAL-TOAST-MESSAGE JS -->
+   <script src="{{asset('js/swalToastMsg.js')}}" type="module"></script>
+
+   <!-- SWEETALERT CDN -->
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+
+   {{-- ADD TO CART JS --}}
+   <script src="{{ asset('js/addToCart.js') }}" defer></script>
+
    <title>{{$categoryWebTitle}} | SoleAce</title>
 </head>
 <body>
+   <!-- This session will handle the SweetAlert2 toast messages -->
+   @if (session('message'))
+      <!-- THESE HIDDEN INPUTS WILL BE USED IN JS -->
+      <input id="toastMsg-input" type="hidden" value="{{ session('message') }}">
+      <input id="toastType-input" type="hidden" value="{{ session('type') }}">
+   @endif
+
    {{-- NAVIGATION --}}
    @include('partials._navigation')
    
@@ -88,11 +104,11 @@
             <h2 class="subcategory--header-title">{{$categoryWebTitle}} <span>[{{count($categorizedProducts)}}]</span></h2>
          </div>
 
-         <form class="products-container" method="POST">
-
+         <form id="add-to-cart-form" class="products-container" method="POST">
+         @csrf
             @foreach($categorizedProducts as $product)
                <div class="product-container">
-                  <a class="more-details-link" href="/">
+                  <a class="more-details-link" href="{{route('product.render', ['productSlug' => $product->slug])}}">
                      <img class="product--image" src="{{ asset('images/' . $product->image) }}" />
                      <h3 class="product--name">{{$product->name}}</h3>
                      <p class="product--sub-category">
@@ -129,44 +145,40 @@
                         <p class="{{$tagType}}">{{$tagName}}</p>
                      @endif
                   </a>
-                  <div class="product-selection">
-                        <div>
-                           <label for="product-size">Size</label>
-                           <select name="product-size" id="product-size">
-                              <option value="9">9</option>
-                              <option value="10">10</option>
-                              <option value="11">11</option>
-                              <option value="12">12</option>
-                              <option value="13">13</option>
-                           </select>
-                        </div>
-                        <div>
-                           <label for="product-quantity">Quantity</label>
-                           <select name="product-quantity" id="product-quantity">
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="4">4</option>
-                              <option value="5">5</option>
-                           </select>
-                        </div>
+                     <div class="product-selection">
+                     <div>
+                        <label for="product-size-{{ $product->id }}">Size</label>
+                        <select name="product_size" id="product-size-{{ $product->id }}" data-product-id="{{ $product->id }}">
+                           <option value="9">9</option>
+                           <option value="10">10</option>
+                           <option value="11">11</option>
+                           <option value="12">12</option>
+                           <option value="13">13</option>
+                        </select>
+                     </div>
+                     <div>
+                        <label for="product-quantity-{{ $product->id }}">Quantity</label>
+                        <select name="product_quantity" id="product-quantity-{{ $product->id }}" data-product-id="{{ $product->id }}">
+                           <option value="1">1</option>
+                           <option value="2">2</option>
+                           <option value="3">3</option>
+                           <option value="4">4</option>
+                           <option value="5">5</option>
+                        </select>
+                     </div>
                   </div>
 
                   <p class="product--selling-price">
-                     ₱ {{ number_format($product->selling_price) }}
+                     ₱ {{ number_format($product->selling_price, 2) }}
 
                      @if ($product->original_price > $product->selling_price)
                         <span class="product--original-price">
-                              ₱ {{ number_format($product->original_price) }}
+                           ₱ {{ number_format($product->original_price, 2) }}
                         </span>
                      @endif
                   </p>
                   <div class="product--buttons-container">
-                     <button class="product--button" style="background-color: #F6BF31;">
-                        BUY NOW
-                        <i class="fa-solid fa-money-bills" style="margin-left: 7px"></i>
-                     </button>
-                     <button class="product--button add-to-cart-btn" style="background-color: #BB0000;" value="{{ $product->id }}">
+                    <button type="button" class="product--button add-to-cart-btn" style="background-color: #BB0000;" data-product-id="{{ $product->id }}">
                         ADD TO CART
                         <i class="fa-solid fa-cart-plus" style="margin-left: 7px"></i>
                      </button>

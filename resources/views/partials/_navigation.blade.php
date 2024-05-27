@@ -64,7 +64,7 @@
                   <h3 class="username">Hi, {{auth()->user()->firstname}}</h3>
 
                   <div class="account-dropdown-menu">
-                     <a href="/" class="sign-out-link">My Orders</a>
+                     <a href="{{route('myOrder.render')}}" class="sign-out-link">My Orders</a>
                      <form action="{{route('user.signOut')}}" method="post">
                         @csrf
                         <button class="sign-out-link" type="submit">Sign Out</button>
@@ -77,7 +77,7 @@
             </a>
          @endauth
 
-         <a href="" class="shopping-cart-link" id="shopping-cart-link">
+         <a href="{{route('cart.render')}}" class="shopping-cart-link" id="shopping-cart-link">
             <i class="fa-solid fa-cart-shopping shopping-cart"></i>
          </a>
 

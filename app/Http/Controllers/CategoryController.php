@@ -98,6 +98,7 @@ class CategoryController extends Controller
             })
             ->where('category', $category)
             ->where('status', 1)
+            ->orderByDesc('created_at')
             ->get();
     }
 

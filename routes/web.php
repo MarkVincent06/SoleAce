@@ -3,7 +3,11 @@
 use App\Models\Product;
 use App\Models\SubCategory;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\MyOrderController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 
 // START OF CLIENT SIDE
@@ -56,12 +60,30 @@ Route::prefix('categories')->group(function () {
     Route::get('/kid-shoes/subcategories/{subcategory}', [CategoryController::class, 'showKidShoes'])->name('kid-shoes');
 });
 
+// Product View Route
+Route::get('/product-view/{productSlug}', [ProductController::class, 'renderProduct'])->name('product.render');
+
 // Users Route
 Route::get('/sign-in', [UserController::class, 'renderSignIn'])->name('sign-in.render');
 Route::get('/sign-up', [UserController::class, 'renderSignUp'])->name('sign-up.render');
 Route::post('/register', [UserController::class, 'register'])->name('user.register');
 Route::post('/sign-in', [UserController::class, 'signIn'])->name('user.signIn');
 Route::post('/sign-out', [UserController::class, 'signOut'])->name('user.signOut');
+
+// Carts Route
+Route::get('/cart', [CartController::class, 'renderCart'])->name('cart.render');
+Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('cart.add');
+Route::post('/cart/{id}', [CartController::class, 'updateFromCart'])->name('cart.update');
+Route::delete('/cart/{id}', [CartController::class, 'deleteFromCart'])->name('cart.delete');
+
+// Orders Route
+Route::get('/checkout', [OrderController::class, 'renderCheckout'])->name('order.renderCheckout');
+Route::post('/placeOrder', [OrderController::class, 'placeOrder'])->name('order.placeOrder');
+
+// My Orders Route
+Route::get('/my-orders', [MyOrderController::class, 'renderMyOrders'])->name('myOrder.render');
+Route::get('/view-order/{trackingNo}', [MyOrderController::class, 'renderViewOrder'])->name('viewOrder.render');
+
 
 // END OF CLIENT SIDE
 

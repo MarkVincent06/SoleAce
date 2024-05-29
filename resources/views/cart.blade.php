@@ -51,7 +51,7 @@
             @else
                @foreach($cartItems as $citem)
                   <div class="cart--product-container">
-                     <img src="{{asset('images/' . $citem->product->image)}}" alt="An image of a product">
+                     <img src="{{Storage::url('uploads/' . $citem->product->image)}}" alt="An image of a product">
                      <div class="cart--product-details">
                         <h3>{{$citem->product->name}}</h3>
                         <p>

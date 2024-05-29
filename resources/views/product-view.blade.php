@@ -46,7 +46,7 @@
          <div class="product-container">
             <div class="left-section">
                <div class="product-image-container">
-                  <img src="{{ asset('images/' . $product->image) }}" alt="An image of the selected product">
+                  <img src="{{ Storage::url('uploads/' . $product->image) }}" alt="An image of the selected product">
                   @php
                      $tagName = null;
                      $tagType = null;

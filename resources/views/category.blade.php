@@ -109,7 +109,7 @@
             @foreach($categorizedProducts as $product)
                <div class="product-container">
                   <a class="more-details-link" href="{{route('product.render', ['productSlug' => $product->slug])}}">
-                     <img class="product--image" src="{{ asset('images/' . $product->image) }}" />
+                     <img class="product--image" src="{{ Storage::url('uploads/' . $product->image) }}" />
                      <h3 class="product--name">{{$product->name}}</h3>
                      <p class="product--sub-category">
                         @if($product->subCategory->name === "Boys" || $product->subCategory->name === "Girls")

@@ -59,10 +59,14 @@ class UserController extends Controller
         // REMOVE LINE 60-66 BEFORE PRODUCTION PHASE
         $user = User::where('email', $credentials['email'])->first();
 
-        if ($user && $user->password === $credentials['password']) {
+        if ($user && $user->password === $credentials['password'] && $user->role_as === "client") {
             Auth::login($user);
             $request->session()->regenerate();
-            return redirect()->intended('/')->with(['message' => 'You have successfully signed in.', 'type' => 'success']);
+            return redirect()->route('home')->with(['message' => 'You have successfully signed in.', 'type' => 'success']);
+        } else if ($user && $user->password === $credentials['password'] && $user->role_as === "admin") {
+            Auth::login($user);
+            $request->session()->regenerate();
+            return redirect()->route('admin.dashboard.render')->with(['message' => 'You have successfully signed in as an admin.', 'type' => 'success']);
         }
 
         // UNCOMMENT CODE BELOW BEFORE PRODUCTION PHASE

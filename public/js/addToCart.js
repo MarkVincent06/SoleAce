@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         toast: true,
                         position: "top-end",
                         icon: "error",
-                        title: "Failed to add product to cart",
+                        title: "Failed to add product to cart.",
                         showConfirmButton: false,
                         timerProgressBar: true,
                         timer: 3000,

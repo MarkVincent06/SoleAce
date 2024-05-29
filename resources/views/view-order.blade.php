@@ -104,7 +104,7 @@
 
            @foreach($orderItems as $item)
                <div class="order-item">
-                  <img src="{{ asset('images/' . $item->product->image) }}" alt="An image of a product">
+                  <img src="{{ Storage::url('uploads/' . $item->product->image) }}" alt="An image of a product">
                   <div class="item-details">
                      <h3 class="item-name">{{$item->product->name}}</h3>
                      <p class="item-subcategory">

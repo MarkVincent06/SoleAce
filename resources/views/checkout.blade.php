@@ -78,7 +78,7 @@
 
             @foreach ($cartItems as $citem)
                <div class="cart-item">
-                  <img src="{{asset('images/' . $citem->product->image)}}" alt="An image of a product">
+                  <img src="{{Storage::url('uploads/' . $citem->product->image)}}" alt="An image of a product">
                   <div class="item-details">
                      <h3 class="item-name">{{$citem->product->name}}</h3>
                      <p class="item-subcategory">

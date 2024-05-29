@@ -57,7 +57,7 @@
                @foreach($featuredProducts as $featuredProduct)
                   <div class="product-container">
                      <a class="more-details-link" href="{{ route('product.render', ['productSlug' => $featuredProduct->slug]) }}">
-                        <img class="product--image" src="{{ asset('images/' . $featuredProduct->image) }}" />
+                        <img class="product--image" src="{{ Storage::url('uploads/' . $featuredProduct->image) }}" />
                         <h3 class="product--name">{{ $featuredProduct->name }}</h3>
                         <p class="product--sub-category">
                            @if($featuredProduct->subCategory->name === "Boys" || $featuredProduct->subCategory->name === "Girls")
@@ -136,13 +136,13 @@
          </section>
       @endif
 
-      {{-- FEATURED PRODUCTS --}}
+      {{-- NEW ITEMS --}}
       <section class=" new-products-container">
          <div class="new-products-subcontainer">
             <h2 class="new-products--title">NEW ITEMS</h2>
             <div class="new-products--images-container">
                @foreach($newProducts as $newProduct)
-                  <img src="{{asset('images/' . $newProduct->image)}}" alt="A picture of a product">
+                  <img src="{{Storage::url('uploads/' . $newProduct->image)}}" alt="A picture of a product">
                @endforeach
             </div>
             <a href="/" class="new-products--button">SHOP NOW</a>
